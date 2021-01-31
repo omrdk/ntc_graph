@@ -81,21 +81,20 @@ class MainWindow(QtWidgets.QMainWindow):
         for i in range(0,1024,1):
             if i == 0:                                                          # log0 tanımsız olduğu için 0'ı eledik
                 Rx = 0
+                Rx_list.append(Rx)
                 Tx = 250            # 0 yapınca grafikte de 0 a düşüyor.
+                Tx_list.append(Tx)
             else:
-                Rx = (Rv*step_list[i])/(Adc-step_list[i])
+                Rx = int((Rv*step_list[i])/(Adc-step_list[i]))
+                Rx_list.append(Rx)
                 Tx = 1.0/(((math.log(Rx)-math.log(Rntc)))/Bn+Tn)-273   # log değeri 0 veya daha az old için geçersiz oluyor
-            Rx_list.append(Rx)
-            Tx_list.append(Tx)
+                Tx_Round = round(Tx,1)
+                Tx_list.append(Tx_Round)
 
-        #print(Tx_list[len(Tx_list)-1])
-        #print(len(Tx_list))
-        #print(Rx_list)
         main = Graph()
         main.move(650,326)
         main.show()
         sys.exit(exec_())               #!!!! PROBLEM
-
 
 class Graph(QtWidgets.QMainWindow):
 
@@ -114,21 +113,26 @@ class Graph(QtWidgets.QMainWindow):
         #self.graphWidget.setTitle("NTC Table", color="w", size="20pt")
 
         styles = {'color':'#fff', 'font-size':'20px'}          # Axis labels 8bit rgb
-        self.graphWidget.setLabel('left', 'Resistance (Ω)', **styles)
+        self.graphWidget.setLabel('left', 'Resistance c', **styles)
         self.graphWidget.setLabel('bottom', 'Temperature (°C)', **styles)
 
         self.graphWidget.showGrid(x=True, y=True)
         #self.graphWidget.setXRange(-100, 500, padding=0)        # set axis limit, first min, second max
         #self.graphWidget.setYRange(-0, 100000, padding=0)
-        self.graphWidget.setLimits(xMin=Tx_list[1023]-30, xMax=Tx_list[1], yMin=Rx_list[0]-5000000, yMax=Rx_list[1023])
+        self.graphWidget.setLimits(xMin=Tx_list[1023]-30, xMax=Tx_list[1], yMin=-150000, yMax=1000000)
 
         pen = pg.mkPen(color=(255, 255, 255), width=1, style=QtCore.Qt.SolidLine)   # plot line with dashes anad configure width
-        self.curve =self.graphWidget.plot(Tx_list, Rx_list, pen=pen)             # plot data: x, y values
+        self.graphWidget.plot(Tx_list, Rx_list, pen=pen)             # plot data: x, y values
 
+        # mouse event (koordinatlar)
+        self.curve = pg.TextItem(text="Tx: {} \nRx: {}".format(0, 0))
+        self.graphWidget.addItem(self.curve)
         self.curve.scene().sigMouseMoved.connect(self.onMouseMoved)
-    def onMouseMoved(self, point):                                      # mouse event (koordinatlar)
+    def onMouseMoved(self, point):
         p = self.graphWidget.plotItem.vb.mapSceneToView(point)
-        self.statusBar().showMessage("Tx:{} Rx:{}".format(p.x(), p.y()))
+        self.curve.setHtml(
+            "<p style='color:yellow'>Tx: {:.1f}°C <br> Rx: {:.0f}Ω</p>".\
+            format(p.x(), p.y()))
 
 
 def main():
