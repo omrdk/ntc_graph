@@ -6,3 +6,7 @@
 <p>Rp  , internal resistor in MCU(enter this if exist)</p>
 <p>ADC , resolution(for 10; 2^10 = 1024)</p>
 <p>ix  , interpolation points</p>
+
+<p>Tested on Python 3.8.5</p>
+
+<p><strong>pip install -r requirements.txt</strong></p>
