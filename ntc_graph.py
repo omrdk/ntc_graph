@@ -32,8 +32,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.line_Bn  = self.findChild(QLabel,      "lbl_Bn")
         self.line_Rp  = self.findChild(QLabel,      "lbl_Rp")
         self.line_adc  = self.findChild(QLabel,  "lbl_adc")
-        self.lbl_Rx = self.findChild(QLabel, "lbl_Rx")
-        self.lbl_Tx = self.findChild(QLabel, "lbl_Tx")
+        self.lbl_ix = self.findChild(QLabel, "lbl_ix")
         # LineEdit definitions
         self.line_Vref  = self.findChild(QLineEdit,    "line_Vref")
         self.line_Rntc  = self.findChild(QLineEdit,    "line_Rntc")
@@ -41,20 +40,32 @@ class MainWindow(QtWidgets.QMainWindow):
         self.line_Bn  = self.findChild(QLineEdit,      "line_Bn")
         self.line_Rp  = self.findChild(QLineEdit,      "line_Rp")
         self.line_adc  = self.findChild(QLineEdit,  "line_adc")
+        self.line_ix = self.findChild(QLineEdit, "line_ix")
 
         # First values
     def reset(self):
         self.line_Vref.setText("1.16")
         self.line_Rntc.setText("10000")
-        self.line_Rv.setText("66000")
+        self.line_Rv.setText("2000")
         self.line_Bn.setText("3950")
         self.line_Rp.setText("0")
         self.line_adc.setText("15")
-        self.lbl_Rx.setText("0.0")
-        self.lbl_Tx.setText("0.0")
-
+        self.line_ix.setText("1024")
+        # NTC table
     def const(self):
-        print("LİNE")
+        Rx_str ="const I16 NTC_Table["+ str(len(Rx_list)) +"] = " + "{ " + ", ".join(repr(e) for e in Rx_list) + "} "
+
+        new_path = 'NTC_Table.txt'
+        ntc_table = open(new_path,'w')
+        ntc_table.write(str(Rx_str))
+
+        # ????????????????????
+    def file_save(self):
+        name = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
+        file = open(name,'w')
+        text = self.textEdit.toPlainText()
+        file.write(text)
+        file.close()
 
     def plot(self): # btn_plot a bsıldığında Graph class'ını görüntüler. (YENI PENCERE)
         # Get values from line edit
@@ -64,33 +75,39 @@ class MainWindow(QtWidgets.QMainWindow):
         Bn   = int(self.line_Bn.text())
         Rp   = int(self.line_Rp.text())
         Adc  = int(self.line_adc.text())
+        ix   = int(self.line_ix.text())
         Tn = 1./298.
         # max. LSB value and step
         Adc = 2**Adc
-        step= Adc//1024
+
+
+        ix_list = [8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
+        if (ix in ix_list):
+            step = Adc / ix
+
         # Fill step_list (0 to max LSB)
         LSB_step = 0                                                            # index (ix) - başlangıç değeri 0
         step_list = []                                                          # step list 1024 adet (ix adım aralığı ile max LSB değerine kadar)
-        for i in range(0,1024,1):
+        for i in range(0,ix,1):
             step_list.append(LSB_step)
             LSB_step = int(LSB_step + step)
         global Rx_list
         global Tx_list
         Rx_list = []
         Tx_list = []
-        for i in range(0,1024,1):
+        for i in range(0,ix,1):
             if i == 0:                                                          # log0 tanımsız olduğu için 0'ı eledik
                 Rx = 0
                 Rx_list.append(Rx)
-                Tx = 250            # 0 yapınca grafikte de 0 a düşüyor.
+                Tx = 500            # 0 yapınca grafikte de 0 a düşüyor.
                 Tx_list.append(Tx)
             else:
-                Rx = int((Rv*step_list[i])/(Adc-step_list[i]))
-                Rx_list.append(Rx)
+                Rx = (Rv*step_list[i])/(Adc-step_list[i])
+                Rx_Round = round(Rx)
+                Rx_list.append(Rx_Round)
                 Tx = 1.0/(((math.log(Rx)-math.log(Rntc)))/Bn+Tn)-273   # log değeri 0 veya daha az old için geçersiz oluyor
                 Tx_Round = round(Tx,1)
                 Tx_list.append(Tx_Round)
-
         main = Graph()
         main.move(650,326)
         main.show()

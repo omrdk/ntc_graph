@@ -34,28 +34,6 @@ color: #FFFFFF;s</string>
      <string>Plot</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lbl_Tx">
-    <property name="geometry">
-     <rect>
-      <x>483</x>
-      <y>120</y>
-      <width>131</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #FFFFFF;</string>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn_rst">
     <property name="geometry">
      <rect>
@@ -71,44 +49,6 @@ color: #FFFFFF;</string>
     </property>
     <property name="text">
      <string>Reset</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbl_Rx_c">
-    <property name="geometry">
-     <rect>
-      <x>239</x>
-      <y>120</y>
-      <width>31</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #FFFFFF;</string>
-    </property>
-    <property name="text">
-     <string>Rx:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbl_Tx_c">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>120</y>
-      <width>31</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #FFFFFF;</string>
-    </property>
-    <property name="text">
-     <string>Tx:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -136,7 +76,7 @@ color: #FFFFFF;</string>
       <x>239</x>
       <y>10</y>
       <width>177</width>
-      <height>100</height>
+      <height>109</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -225,7 +165,7 @@ color: #FFFFFF;</string>
       <x>419</x>
       <y>10</y>
       <width>197</width>
-      <height>100</height>
+      <height>109</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -290,12 +230,12 @@ color: #FFFFFF;</string>
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="lbl_Rx">
+   <widget class="QLabel" name="lbl_ix">
     <property name="geometry">
      <rect>
-      <x>279</x>
+      <x>240</x>
       <y>120</y>
-      <width>131</width>
+      <width>231</width>
       <height>28</height>
      </rect>
     </property>
@@ -309,7 +249,7 @@ color: #FFFFFF;</string>
      <string notr="true">color: #FFFFFF;</string>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Num. of interpolating points(ix):</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_const">
@@ -327,6 +267,19 @@ color: #FFFFFF;</string>
     </property>
     <property name="text">
      <string>NTC Table</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="line_ix">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>120</y>
+      <width>123</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">Background-color: rgb(255,255,255);</string>
     </property>
    </widget>
   </widget>
