@@ -5,7 +5,7 @@
 <p>Bn  , Beta constant(it is in your NTC datasheet, usually approximate 3950)</p>
 <p>Rp  , internal resistor in MCU(enter this if exist)</p>
 <p>ADC , resolution(for 10; 2^10 = 1024)</p>
-<p>ix  , interpolation points</p>
+<p>ix  , interpolation points(only for 1024, 2048, 4096)</p>
 
 <p>Tested on Python 3.8.5</p>
 
