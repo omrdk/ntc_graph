@@ -53,19 +53,23 @@ class MainWindow(QtWidgets.QMainWindow):
         self.line_ix.setText("1024")
         # NTC table
     def const(self):
-        Rx_str ="const I16 NTC_Table["+ str(len(Rx_list)) +"] = " + "{ " + ", ".join(repr(e) for e in Rx_list) + "} "
-
+        strx = ''
+        global Rx_list
+        Rx_str_convert = [str(x) for x in Rx_list]                              # int list to str list
+        cnt = 1
+        col = 16
+        for i in Rx_str_convert:
+            s = i.rjust(len(Rx_str_convert[len(Rx_str_convert)-2]),' ') + ', '  # number of digits of the last resistor value in ntc_list
+            if cnt % col == 0:
+                s = s + '\n'
+            strx = strx + s
+            cnt = cnt + 1
+        strx = "const I16 NTC_Table[" + str(len(Rx_list)) + "] = {\n" + strx + "};"
+        #Rx_str ="const I16 NTC_Table["+ str(len(Rx_list)) +"] = " + "{\n " + ", ".join(repr(e) for e in Rx_align) + " } "
         new_path = 'NTC_Table.txt'
         ntc_table = open(new_path,'w')
-        ntc_table.write(str(Rx_str))
-
-        # ????????????????????
-    def file_save(self):
-        name = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
-        file = open(name,'w')
-        text = self.textEdit.toPlainText()
-        file.write(text)
-        file.close()
+        #ntc_table.write(str(Rx_str))
+        ntc_table.write(strx)
 
     def plot(self): # btn_plot a bsıldığında Graph class'ını görüntüler. (YENI PENCERE)
         # Get values from line edit
@@ -80,11 +84,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # max. LSB value and step
         Adc = 2**Adc
 
-
         ix_list = [8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
         if (ix in ix_list):
             step = Adc / ix
-
         # Fill step_list (0 to max LSB)
         LSB_step = 0                                                            # index (ix) - başlangıç değeri 0
         step_list = []                                                          # step list 1024 adet (ix adım aralığı ile max LSB değerine kadar)
@@ -105,7 +107,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 Rx = (Rv*step_list[i])/(Adc-step_list[i])
                 Rx_Round = round(Rx)
                 Rx_list.append(Rx_Round)
-                Tx = 1.0/(((math.log(Rx)-math.log(Rntc)))/Bn+Tn)-273   # log değeri 0 veya daha az old için geçersiz oluyor
+                Tx = 1.0/(((math.log(Rx)-math.log(Rntc)))/Bn+Tn)-273            # log değeri 0 veya daha az old için geçersiz oluyor
                 Tx_Round = round(Tx,1)
                 Tx_list.append(Tx_Round)
         main = Graph()
@@ -129,17 +131,17 @@ class Graph(QtWidgets.QMainWindow):
         self.graphWidget.setBackground((0,0,0))
         #self.graphWidget.setTitle("NTC Table", color="w", size="20pt")
 
-        styles = {'color':'#fff', 'font-size':'20px'}          # Axis labels 8bit rgb
+        styles = {'color':'#fff', 'font-size':'20px'}                           # Axis labels 8bit rgb
         self.graphWidget.setLabel('left', 'Resistance c', **styles)
         self.graphWidget.setLabel('bottom', 'Temperature (°C)', **styles)
 
         self.graphWidget.showGrid(x=True, y=True)
-        #self.graphWidget.setXRange(-100, 500, padding=0)        # set axis limit, first min, second max
+        #self.graphWidget.setXRange(-100, 500, padding=0)                       # set axis limit, first min, second max
         #self.graphWidget.setYRange(-0, 100000, padding=0)
         self.graphWidget.setLimits(xMin=Tx_list[1023]-30, xMax=Tx_list[1], yMin=-150000, yMax=1000000)
 
         pen = pg.mkPen(color=(255, 255, 255), width=1, style=QtCore.Qt.SolidLine)   # plot line with dashes anad configure width
-        self.graphWidget.plot(Tx_list, Rx_list, pen=pen)             # plot data: x, y values
+        self.graphWidget.plot(Tx_list, Rx_list, pen=pen)                            # plot data: x, y values
 
         # mouse event (koordinatlar)
         self.curve = pg.TextItem(text="Tx: {} \nRx: {}".format(0, 0))
