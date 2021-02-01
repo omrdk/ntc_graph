@@ -9,4 +9,10 @@
 
 <p>Tested on Python 3.8.5</p>
 
-<p><strong>pip install -r requirements.txt</strong></p>
+<p>The requirements.txt file should list all Python libraries that your notebooks depend on, and they will be installed using:</p>
+<pre>
+    <code>
+        pip install -r requirements.txt
+    </code>
+</pre>
+
