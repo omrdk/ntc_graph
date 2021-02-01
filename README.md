@@ -1,4 +1,4 @@
-<p>This program generates <strong>NTC Table C-code</strong> and <strong>NTC Graph</strong>. First of all, you must enter the values, which belongs to ntc and your sistem. If you want to generate NTC Table as a <strong>C-code</strong>, first you must plot the graph, then you can press NTC Table button in order to generate C-code which will be saved in program location.</p>
+<p>This program generates <strong>NTC Table C-code</strong> and <strong>NTC Graph</strong>. First of all, you must enter the values, which belongs to ntc and your sistem. If you want to generate NTC Table as a <strong>C-code</strong>, first you must plot the graph, then you can press NTC Table button in order to generate C-code which will be saved <ins>in program location.</ins></p>
 <p>Vref, supply voltage</p>
 <p>Rntc, NTC resistance at 25°C</p>
 <p>Rv  , pull-up resistor </p>
