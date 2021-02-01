@@ -41,7 +41,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.line_Rp  = self.findChild(QLineEdit,      "line_Rp")
         self.line_adc  = self.findChild(QLineEdit,  "line_adc")
         self.line_ix = self.findChild(QLineEdit, "line_ix")
-
         # First values
     def reset(self):
         self.line_Vref.setText("1.16")
@@ -138,7 +137,7 @@ class Graph(QtWidgets.QMainWindow):
         self.graphWidget.showGrid(x=True, y=True)
         #self.graphWidget.setXRange(-100, 500, padding=0)                       # set axis limit, first min, second max
         #self.graphWidget.setYRange(-0, 100000, padding=0)
-        self.graphWidget.setLimits(xMin=Tx_list[1023]-30, xMax=Tx_list[1], yMin=-150000, yMax=1000000)
+        self.graphWidget.setLimits(xMin=-60, xMax=100, yMin=-150000, yMax=1000000)
 
         pen = pg.mkPen(color=(255, 255, 255), width=1, style=QtCore.Qt.SolidLine)   # plot line with dashes anad configure width
         self.graphWidget.plot(Tx_list, Rx_list, pen=pen)                            # plot data: x, y values
