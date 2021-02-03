@@ -7,7 +7,7 @@
 <p>ADC , resolution(for 10; 2^10 = 1024)</p>
 <p>ix  , interpolation points(only for 1024, 2048, 4096)</p>
 
-<p>Tested on Python 3.8.5</p>
+<p>Tested on Python 3.8.5 and Windows 10</p>
 
 <p>The requirements.txt file should list all Python libraries that your notebooks depend on, and they will be installed using:</p>
 <pre>
