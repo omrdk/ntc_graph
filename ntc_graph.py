@@ -4,7 +4,7 @@ import math
 import numpy
 from PyQt5 import QtWidgets, QtGui, uic, QtCore
 from pyqtgraph import PlotWidget, plot
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel, QFileDialog
 import pyqtgraph as pg
 
 
@@ -24,7 +24,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.btn_const = self.findChild(QPushButton, "btn_const")
         self.btn_rst.clicked.connect(self.reset)
         self.btn_plot.clicked.connect(self.plot)
-        self.btn_const.clicked.connect(self.const)
+        self.btn_const.clicked.connect(self.savefile)
         # Label definitions
         self.line_Vref  = self.findChild(QLabel,    "lbl_Vref")
         self.line_Rntc  = self.findChild(QLabel,    "lbl_Rntc")
@@ -52,6 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.line_ix.setText("1024")
         # NTC table
     def const(self):
+        global strx
         strx = ''
         global Rx_list
         Rx_str_convert = [str(x) for x in Rx_list]                              # int list to str list
@@ -65,10 +66,18 @@ class MainWindow(QtWidgets.QMainWindow):
             cnt = cnt + 1
         strx = "const I16 NTC_Table[" + str(len(Rx_list)) + "] = {\n" + strx + "};"
         #Rx_str ="const I16 NTC_Table["+ str(len(Rx_list)) +"] = " + "{\n " + ", ".join(repr(e) for e in Rx_align) + " } "
-        new_path = 'NTC_Table.txt'
-        ntc_table = open(new_path,'w')
-        #ntc_table.write(str(Rx_str))
-        ntc_table.write(strx)
+
+    def savefile(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getSaveFileName(self,"Save file", "","Text Files (*.txt);;All Files (*)", options=options) #(*.mp3 *.ogg *.wav *.m4a)
+        if fileName:
+            print(fileName)
+        self.const()
+        global strx
+        ntc_table_txt = open(fileName,'w')
+        ntc_table_txt.write(strx)
+        ntc_table_txt.close()
 
     def plot(self): # btn_plot a bsıldığında Graph class'ını görüntüler. (YENI PENCERE)
         # Get values from line edit
