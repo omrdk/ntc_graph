@@ -18,29 +18,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setFixedSize(640,200)
 
         self.reset()
-        # Button definitions
-        self.btn_plot = self.findChild(QPushButton, "btn_plot")
-        self.btn_rst = self.findChild(QPushButton, "btn_rst")
-        self.btn_const = self.findChild(QPushButton, "btn_const")
+
         self.btn_rst.clicked.connect(self.reset)
         self.btn_plot.clicked.connect(self.plot)
         self.btn_const.clicked.connect(self.savefile)
-        # Label definitions
-        self.line_Vref  = self.findChild(QLabel,    "lbl_Vref")
-        self.line_Rntc  = self.findChild(QLabel,    "lbl_Rntc")
-        self.line_Rv  = self.findChild(QLabel,      "lbl_Rv")
-        self.line_Bn  = self.findChild(QLabel,      "lbl_Bn")
-        self.line_Rp  = self.findChild(QLabel,      "lbl_Rp")
-        self.line_adc  = self.findChild(QLabel,  "lbl_adc")
-        self.lbl_ix = self.findChild(QLabel, "lbl_ix")
-        # LineEdit definitions
-        self.line_Vref  = self.findChild(QLineEdit,    "line_Vref")
-        self.line_Rntc  = self.findChild(QLineEdit,    "line_Rntc")
-        self.line_Rv  = self.findChild(QLineEdit,      "line_Rv")
-        self.line_Bn  = self.findChild(QLineEdit,      "line_Bn")
-        self.line_Rp  = self.findChild(QLineEdit,      "line_Rp")
-        self.line_adc  = self.findChild(QLineEdit,  "line_adc")
-        self.line_ix = self.findChild(QLineEdit, "line_ix")
+
         # First values
     def reset(self):
         self.line_Vref.setText("1.16")

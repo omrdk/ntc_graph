@@ -137,21 +137,21 @@ color: #FFFFFF;</string>
        <item>
         <widget class="QLineEdit" name="line_Vref">
          <property name="styleSheet">
-          <string notr="true">Background-color: rgb(255,255,255);</string>
+          <string notr="true">Background-color: rgb(255,255,255);color:rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="line_Rntc">
          <property name="styleSheet">
-          <string notr="true">Background-color: rgb(255,255,255);</string>
+          <string notr="true">Background-color: rgb(255,255,255);color:rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="line_Rv">
          <property name="styleSheet">
-          <string notr="true">Background-color: rgb(255,255,255);</string>
+          <string notr="true">Background-color: rgb(255,255,255);color:rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
@@ -208,21 +208,21 @@ color: #FFFFFF;</string>
        <item>
         <widget class="QLineEdit" name="line_Bn">
          <property name="styleSheet">
-          <string notr="true">Background-color: rgb(255,255,255);</string>
+          <string notr="true">Background-color: rgb(255,255,255);color:rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="line_Rp">
          <property name="styleSheet">
-          <string notr="true">Background-color: rgb(255,255,255);</string>
+          <string notr="true">Background-color: rgb(255,255,255);color:rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="line_adc">
          <property name="styleSheet">
-          <string notr="true">Background-color: rgb(255,255,255);</string>
+          <string notr="true">Background-color: rgb(255,255,255);color:rgb(0,0,0)</string>
          </property>
         </widget>
        </item>
@@ -272,14 +272,14 @@ color: #FFFFFF;</string>
    <widget class="QLineEdit" name="line_ix">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>487</x>
       <y>120</y>
-      <width>123</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">Background-color: rgb(255,255,255);</string>
+     <string notr="true">Background-color: rgb(255,255,255);color:rgb(0,0,0)</string>
     </property>
    </widget>
   </widget>
