@@ -46,7 +46,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 s = s + '\n'
             strx = strx + s
             cnt = cnt + 1
-        strx = "const I16 NTC_Table[" + str(len(Rx_list)) + "] = {\n" + strx + "};"
+        strx = "const I16 NTC_Table[" + str(len(Rx_list)) + "] = {\n" + strx
+        strx = strx.rstrip().rstrip(',')
+        strx = strx + ' };'
         #Rx_str ="const I16 NTC_Table["+ str(len(Rx_list)) +"] = " + "{\n " + ", ".join(repr(e) for e in Rx_align) + " } "
 
     def savefile(self):
